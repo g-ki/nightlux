@@ -1,17 +1,15 @@
-FROM node:6.10.0
+FROM node:6.10
 MAINTAINER Georgi Kiryakov <george.kiryakov@gmail.com>
 
-RUN apt-get update && apt-get install -qq -y build-essential --fix-missing --no-install-recommends
-
 # Create app directory
-ENV INSTALL_PATH /nightlux
+ENV INSTALL_PATH /nightlux/client
 RUN mkdir -p ${INSTALL_PATH}
 
 WORKDIR ${INSTALL_PATH}
 
 # Install app dependencies
 COPY package.json package.json
-npm install
+RUN npm install
 
 # Bundle app source
 COPY . .
