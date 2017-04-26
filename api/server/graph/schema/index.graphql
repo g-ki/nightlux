@@ -1,3 +1,19 @@
 type Query {
-  hello: String
+  place(name: String): Place
+  places: [Place]
+}
+
+type Place {
+  name: String!
+  location: Location
+}
+
+type Location {
+  name: String!
+  coords: Coordinates!
+}
+
+type Coordinates {
+  latitude: Float!
+  longitude: Float!
 }

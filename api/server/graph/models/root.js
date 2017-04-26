@@ -1,5 +1,11 @@
+import Place from './place'
+
 export default class Root {
-  hello() {
-    return 'Hello world!';
+  place(args, ctx) {
+    return Place.findOne({ 'name': args.name });
+  }
+  
+  places() {
+    return Place.find();
   }
 }

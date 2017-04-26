@@ -3,17 +3,20 @@
   "version": "1.0.0",
   "description": "Graphql API",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon --watch server --exec babel-node server/index.js",
+    "start": "babel-node server/index.js"
   },
   "author": "George Kiryakov",
   "dependencies": {
     "express": "^4.15.2",
     "express-graphql": "^0.6.4",
-    "graphql": "^0.9.3"
+    "graphql": "^0.9.3",
+    "mongoose": "^4.9.6"
   },
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-cli": "^6.24.1",
-    "babel-preset-env": "^1.4.0"
+    "babel-preset-env": "^1.4.0",
+    "nodemon": "^1.11.0"
   }
 }

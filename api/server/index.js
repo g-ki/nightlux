@@ -1,5 +1,10 @@
 import express from 'express';
 import graph from './graph';
+import mongoose from 'mongoose'
+import * as config from '../config'
+
+mongoose.Promise = global.Promise;
+mongoose.connect(config.db.MONGO_URL);
 
 let app = express();
 

@@ -1,5 +1,5 @@
 import graphqlHTTP from 'express-graphql'
-import config from '../../config'
+import * as config from '../../config'
 import schema from './schema'
 import Root from './models/root'
 

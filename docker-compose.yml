@@ -3,19 +3,22 @@ services:
   client:
     build: ./client
     ports:
-      - "3000:3000"
-      - "8080:8080"
+      - "80:3000"
     volumes:
       - ./client:/nightlux/client
       - /nightlux/client/node_modules
-  # api:
-  #   build: ./api
-  #   ports:
-  #     - "3001:3000"
-  #   volumes:
-  #     - ./api:/nightlux/api
-  #     - /nightlux/api/node_modules
-  # mongo:
-  #   image: mongo:3.4
-  #   volumes:
-  #     - ~/.docker-volumes/nightlux/mongo/:/data/db
+    restart: on-failure
+  api:
+    build: ./api
+    ports:
+      - "8080:3000"
+    volumes:
+      - ./api:/nightlux/api
+      - /nightlux/api/node_modules
+    depends_on:
+      - "mongo"
+    restart: on-failure
+  mongo:
+    image: mongo:3.4
+    volumes:
+      - ~/.docker-volumes/nightlux/mongo/:/data/db
