@@ -1,15 +1,17 @@
-import graphqlHTTP from 'express-graphql'
-import * as config from '../../config'
+import {
+  graphqlExpress,
+  graphiqlExpress,
+} from 'graphql-server-express';
 import schema from './schema'
-import Root from './models/root'
 
 /*
 * Export a GraphQL middleware.
 */
 
-export default graphqlHTTP(req => ({
-  schema,
-  rootValue: new Root(),
-  context: req,
-  graphiql: true,
-}));
+export const graphql = graphqlExpress({
+  schema
+});
+
+export const graphiql = graphiqlExpress({
+  endpointURL: '/graphql'
+});

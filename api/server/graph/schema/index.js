@@ -1,11 +1,15 @@
 import fs from 'fs';
 import { join } from 'path';
-import { buildSchema } from 'graphql';
+import resolvers from '../resolvers'
+import {
+  makeExecutableSchema,
+} from 'graphql-tools';
 
 /*
 * Public GraphQL schema.
 */
 
-export default buildSchema(
-  fs.readFileSync(join(__dirname, 'index.graphql'), 'utf-8')
-);
+const typeDefs = fs.readFileSync(join(__dirname, 'index.graphql'), 'utf-8');
+
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+export default schema;

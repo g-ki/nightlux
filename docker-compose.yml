@@ -3,7 +3,7 @@ services:
   client:
     build: ./client
     ports:
-      - "80:3000"
+      - "3000:3000"
     volumes:
       - ./client:/nightlux/client
       - /nightlux/client/node_modules
@@ -11,7 +11,7 @@ services:
   api:
     build: ./api
     ports:
-      - "8080:3000"
+      - "4000:4000"
     volumes:
       - ./api:/nightlux/api
       - /nightlux/api/node_modules

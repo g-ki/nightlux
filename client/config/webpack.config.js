@@ -2,6 +2,8 @@ const { resolve } = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const distPath = resolve(__dirname, '..', 'dist');
+
 module.exports = {
   context: resolve(__dirname, '..'),
   entry: {
@@ -12,7 +14,7 @@ module.exports = {
     vendor: './app/src/vendor.js'
   },
   output: {
-    path: resolve(__dirname, '..', 'dist'),
+    path: distPath,
     filename: '[name].bundle.js',
     publicPath: '/'
   },
@@ -22,7 +24,7 @@ module.exports = {
     historyApiFallback: true,
     host: '0.0.0.0',
     port: 3000,
-    contentBase: resolve(__dirname, '..' ,'dist'),
+    contentBase: distPath,
     publicPath: '/',
     stats: 'minimal',
   },

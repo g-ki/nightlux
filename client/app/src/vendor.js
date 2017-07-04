@@ -2,3 +2,4 @@
 
 import 'react';
 import 'react-dom';
+import 'babel-polyfill';
