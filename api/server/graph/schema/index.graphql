@@ -23,6 +23,7 @@ type Coordinates {
 
 type Query {
   categories: [Category]
+  category(id: ID!): Category
 }
 
 type Mutation {
