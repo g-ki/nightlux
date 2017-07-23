@@ -4,16 +4,27 @@ import gql from 'graphql-tag';
 
 import AddCategoryWithMutation from './AddCategoryWithMutation'
 
+import { Link } from 'react-router-dom';
+
+function CategoryListItem({ category }) {
+  return (
+    <Link to={`category/${category.id}`}>{category.name}</Link>
+  );
+}
+
 function CategoriesList({ data : { loading, error, categories }}) {
   if (loading)
     return <p>Loading...</p>
 
   return (
-    <div className='categoriesList'>
-      <AddCategoryWithMutation />
-      <ul>
-        { categories.map(cat => <li key={cat.id}>{cat.name} > {cat.places.map(p => p.name).join(', ')}</li>) }
-      </ul>
+    <div className='categoriesList pure-g'>
+      {
+        categories.map(cat =>
+          <div className="pure-u-1-3" key={cat.id}>
+            <CategoryListItem category={cat}/>
+          </div>
+        )
+      }
     </div>
   );
 }

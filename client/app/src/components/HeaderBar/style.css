@@ -1,0 +1,9 @@
+.headerBar {
+  background-color: #282828;
+  padding: 15px;
+  padding-bottom: 8px;
+}
+
+.search input {
+  background-color: #3e3e3e;
+}

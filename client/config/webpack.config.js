@@ -18,6 +18,12 @@ module.exports = {
     filename: '[name].bundle.js',
     publicPath: '/'
   },
+  resolve: {
+    alias: {
+      Components: resolve(__dirname, '..', 'app/src/components/'),
+      Containers: resolve(__dirname, '..', 'app/src/containers/')
+    }
+  },
   devServer: {
     hot: true,
     inline: true,
