@@ -12,12 +12,14 @@ import {
   createNetworkInterface,
 } from 'react-apollo';
 
-import style from './style.css'
+import style from './style.css';
 
-import Home from 'Containers/Home'
-import Category from 'Containers/Category'
+import Home from 'Containers/Home';
+import Category from 'Containers/Category';
+import NewService from 'Containers/NewService';
 
-const networkInterface = createNetworkInterface({ uri: 'http://localhost:4000/graphql' });
+const networkOptions = { uri: 'http://localhost:4000/graphql' };
+const networkInterface = createNetworkInterface(networkOptions);
 const client = new ApolloClient({
   networkInterface
 });
@@ -27,8 +29,9 @@ const App = () => (
     <BrowserRouter>
       <div className='app'>
         <Switch>
-          <Route exact path='/' component={Home}/>
-          <Route path='/category/:categoryId' component={Category}/>
+          <Route exact path='/' component={Home} />
+          <Route path='/categories/:categoryId' component={Category} />
+          <Route path='/services/new' component={NewService} />
         </Switch>
       </div>
     </BrowserRouter>
