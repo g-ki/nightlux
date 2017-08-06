@@ -1,12 +1,19 @@
-import Category from '../models/category';
-import Place from '../models/place'
+import Tag from '../models/tag';
+import Service from '../models/service'
 
 const Query = {
-  categories() {
-    return Category.find().populate('places');
+  tags(root, { categoriesOnly }) {
+    return Tag.find().populate('services');
   },
-  category(root, { id }) {
-  return Category.findById(id).populate('places');
+
+
+  tag(root, { id }) {
+    return Tag.findById(id).populate('services');
+  },
+
+
+  service(root, { id }) {
+    return Service.findById(id).populate('tags');
   }
 };
 

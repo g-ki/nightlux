@@ -1,32 +1,45 @@
-type Category {
+type Tag {
   id: ID!
   name: String!
-  places: [Place]
+  services: [Service]
+  isCategory: Boolean
 }
 
-type Place{
+input TagInput {
+  name: String
+  isCategory: Boolean
+}
+
+type Service {
   id: ID!
   name: String!
-  category: Category!
   location: Location
+  tags: [Tag]!
+  description: String
+}
+
+input ServiceInput {
+  name: String!
+  address: String
+  tags: [String!]
+  description: String
 }
 
 type Location {
-  name: String!
-  coords: Coordinates!
-}
-
-type Coordinates {
+  address: String!
   latitude: Float!
   longitude: Float!
 }
 
 type Query {
-  categories: [Category]
-  category(id: ID!): Category
+  tags(categoriesOnly: Boolean): [Tag]
+  tag(id: ID!): Tag
+  service(id: ID!): Service
 }
 
 type Mutation {
-  # A mutation to add new category to the list of categories
-  addCategory(name: String!): Category
+  # A mutation to add new Tag
+  addTag(input: TagInput): Tag
+  # A mutation to add new Service
+  addService(input: ServiceInput): Service
 }
