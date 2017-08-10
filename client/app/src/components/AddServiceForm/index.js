@@ -2,9 +2,6 @@ import React from 'react';
 import { gql, graphql } from 'react-apollo';
 import { Button, Form, Divider, Grid } from 'semantic-ui-react';
 
-import Chips from 'Components/Chips';
-
-
 class AddServiceForm extends React.Component {
   constructor(props) {
     super(props);
