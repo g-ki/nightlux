@@ -36,14 +36,9 @@ export const categoriesListQuery = gql`
     tags {
       id
       name
-      services {
-        name
-      }
     }
   }
 `;
-const CategoriesListWithData = graphql(categoriesListQuery, {
-  options: { pollInterval: 5000 }
-})(CategoriesList);
+const CategoriesListWithData = graphql(categoriesListQuery)(CategoriesList);
 
 export default CategoriesListWithData;
