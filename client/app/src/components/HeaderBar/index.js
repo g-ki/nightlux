@@ -1,21 +1,22 @@
 import React from 'react';
+import { Grid, Menu } from 'semantic-ui-react';
 import style from './style.css';
 
-import Search from 'Components/Search'
-import Logo from 'Components/Logo'
+import Search from 'Components/Search';
+import Logo from 'Components/Logo';
 
 export default () => (
-  <div className={`pure-g ${style.headerBar}`}>
-    <div className="pure-u-1-8">
-      <Logo />
-    </div>
-    <div className="pure-g pure-u-2-3">
-      <div className="pure-u-21-24">
+  <div className={style.headerBar}>
+    <Grid>
+      <Grid.Column width={2}>
+        <Logo />
+      </Grid.Column>
+      <Grid.Column width={9}>
         <Search className={style.search}/>
-      </div>
-    </div>
-    <div className="pure-u-5-24">
-      <p>Profile</p>
-    </div>
+      </Grid.Column>
+      <Grid.Column width={5}>
+        <p>Profile</p>
+      </Grid.Column>
+    </Grid>
   </div>
 );

@@ -1,5 +1,6 @@
 import React from 'react';
 import { gql, graphql } from 'react-apollo';
+import { Button, Form, Divider, Grid } from 'semantic-ui-react';
 
 import Chips from 'Components/Chips';
 
@@ -25,8 +26,14 @@ class AddServiceForm extends React.Component {
   }
 
 
-  handleChipsUpdate = (newTags) => {
-    this.setState({ tags: newTags });
+  handleTagsUpdate = (e, { value } ) => {
+    this.setState({ tags: value });
+  }
+
+
+  handleSearchChange = (e, value) => {
+    // TODO: Search in the datatabe
+    console.log('search for', value);
   }
 
 
@@ -38,7 +45,8 @@ class AddServiceForm extends React.Component {
       });
       // TODO: redirect to service page
     } catch (e) {
-      console.error('something went wrong');
+      // TODO: display proper error message
+      console.error('something went wrong', e);
     }
 
     this.setState({
@@ -50,34 +58,55 @@ class AddServiceForm extends React.Component {
   }
 
 
+  tagsOptions = () => {
+    return this.state.tags.map(t => ({ key: t, text: t, value: t }))
+  }
+
+
   render() {
     return (
-      <div className="pure-form pure-form-stacked">
-        <input
-          name="name"
-          type="text"
-          placeholder="Service name"
-          value={this.state.name}
-          onChange={this.handleInputChange} />
+      <Grid stackable columns={2}>
+        <Grid.Column>
+          <Form as='div'>
+            <Form.Input
+              label='Service Name'
+              name="name"
+              type="text"
+              placeholder="Service name"
+              value={this.state.name}
+              onChange={this.handleInputChange} />
 
-          <input
-            name="address"
-            type="text"
-            placeholder="Service address"
-            value={this.state.address}
-            onChange={this.handleInputChange} />
+            <Form.Input
+              label='Service address'
+              name="address"
+              type="text"
+              placeholder="Service address"
+              value={this.state.address}
+              onChange={this.handleInputChange} />
 
-          <Chips value={this.state.tags} onUpdate={this.handleChipsUpdate}/>
+            <Form.Dropdown
+              label='Tags'
+              placeholder='Tags'
+              fluid multiple selection search
+              options={[]}
+              value={this.state.tags}
+              onChange={this.handleTagsUpdate}
+              onSearchChange={this.handleSearchChange} />
 
-        <textarea
-          name="description"
-          placeholder="Description"
-          value={this.state.description}
-          onChange={this.handleInputChange}
-          ></textarea>
+            <Form.TextArea
+              label='Description'
+              name="description"
+              placeholder="Description"
+              value={this.state.description}
+              onChange={this.handleInputChange} />
 
-          <button onClick={this.handleSubmit}>Submit</button>
-      </div>
+              <Button onClick={this.handleSubmit}>Submit</Button>
+          </Form>
+        </Grid.Column>
+        <Grid.Column>
+          <h1>Map goes here</h1>
+        </Grid.Column>
+      </Grid>
     );
   }
 }

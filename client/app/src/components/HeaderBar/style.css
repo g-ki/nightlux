@@ -1,7 +1,8 @@
 .headerBar {
   background-color: #282828;
-  padding: 15px;
-  padding-bottom: 8px;
+  padding: 1rem;
+  color: #ccc;
+  /*margin-bottom: 1rem;*/
 }
 
 .search input {

@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './style.css';
+import { Input } from 'semantic-ui-react'
 
 export default function searchBar(props) {
   const handleKeyUp = async (evt) => {
@@ -7,11 +8,11 @@ export default function searchBar(props) {
   }
 
   return (
-    <div className={`${style.search} ${props.className}`}>
-      <input
-        className="prompt"
-        type="text"
-        placeholder="Search"
+    <div className={`${props.className}`}>
+      <Input
+        fluid
+        icon='search'
+        placeholder='Search...'
         onKeyUp={handleKeyUp}
       />
       <div className="results"></div>

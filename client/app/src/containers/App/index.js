@@ -27,13 +27,13 @@ const client = new ApolloClient({
 const App = () => (
   <ApolloProvider client={client}>
     <BrowserRouter>
-      <div className='app'>
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route path='/categories/:categoryId' component={Category} />
-          <Route path='/services/new' component={NewService} />
-        </Switch>
-      </div>
+        <div className='app'>
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route path='/tags/:tagId' component={Category} />
+            <Route path='/services/new' component={NewService} />
+          </Switch>
+        </div>
     </BrowserRouter>
   </ApolloProvider>
 );

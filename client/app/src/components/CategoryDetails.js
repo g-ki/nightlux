@@ -2,41 +2,48 @@ import React from 'react'
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import PlacesList from './PlacesList'
+import { Header,  Dimmer, Loader } from 'semantic-ui-react';
+import PlacesList from './PlacesList';
 
-function CategoryDetails({ data: { loading, error, category } }) {
+function CategoryDetails({ data: { loading, error, tag } }) {
   if (loading)
-    return <p>Loading...</p>
+    return (
+      <p>Loading...</p>
+    )
 
   if (error)
     return <p>{error.message}</p>
 
   // TODO: implement NotFound component
-  // if (category === null)
+  // if (tag === null)
   //   return <NotFound />
 
   let placeList = null;
-  if (category.places.length == 0)
+  if (tag.services.length == 0)
     placeList = <p>No places in this category!</p>
   else
-    placeList = <PlacesList places={category.places} />
+    placeList = <PlacesList services={tag.services} />
 
   return (
     <div className='category-details'>
-      <p>{category.name}</p>
+      <Header as='h1'>#{tag.name}</Header>
       {placeList}
     </div>
   );
 }
 
 const CategoryDetailsQuery = gql`
-  query CategoryDetailsQuery($categoryId: ID!) {
-    category(id: $categoryId) {
+  query CategoryDetailsQuery($tagId: ID!) {
+    tag(id: $tagId) {
       id
       name
-      places {
+      services {
         id
         name
+        description
+        location {
+          address
+        }
       }
     }
   }
@@ -45,7 +52,7 @@ const CategoryDetailsQuery = gql`
 export default (graphql(CategoryDetailsQuery, {
   options(props) {
     return {
-      variables: { categoryId: props.match.params.categoryId }
+      variables: { tagId: props.match.params.tagId }
     }
   }
 })(CategoryDetails));

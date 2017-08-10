@@ -1,19 +1,25 @@
 import React from 'react';
+import { Grid, Divider } from 'semantic-ui-react';
 import Search from 'Components/Search';
 import CategoriesListWithData from 'Components/CategoriesListWithData';
+import Logo from 'Components/Logo';
+
 
 import style from './style.css';
 
 export default () => (
-  <div className={style.home}>
-    <div className={`${style.hero} pure-g`}>
-      <Search className={`${style.search} pure-u-11-12 pure-u-md-1-2 pure-u-lg-4-8`}/>
-    </div>
-
-    <div className="pure-g">
-      <div className={`pure-u-11-12 pure-u-md-3-4 ${style.categories}`}>
+  <Grid container>
+    <Grid.Row>
+      <Grid.Column>
+        <Logo />
+        <Search className={style.search}/>
+      </Grid.Column>
+    </Grid.Row>
+    <Grid.Row>
+      <Grid.Column>
+        <Divider horizontal>Popular</Divider>
         <CategoriesListWithData />
-      </div>
-    </div>
-  </div>
+      </Grid.Column>
+    </Grid.Row>
+  </Grid>
 );

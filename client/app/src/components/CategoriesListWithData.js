@@ -2,39 +2,41 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import AddCategoryWithMutation from './AddCategoryWithMutation'
+import { Card, Image } from 'semantic-ui-react';
 
 import { Link } from 'react-router-dom';
 
 function CategoryListItem({ category }) {
   return (
-    <Link to={`category/${category.id}`}>{category.name}</Link>
+    <Card raised as={ Link } to={`tags/${category.id}`}>
+      <Card.Content>
+        <Card.Header content={`#${category.name}`}/>
+      </Card.Content>
+    </Card>
   );
 }
 
-function CategoriesList({ data : { loading, error, categories }}) {
+function CategoriesList({ data : { loading, error, tags }}) {
   if (loading)
     return <p>Loading...</p>
 
   return (
-    <div className='categoriesList pure-g'>
+    <Card.Group stackable itemsPerRow={3}>
       {
-        categories.map(cat =>
-          <div className="pure-u-1-3" key={cat.id}>
-            <CategoryListItem category={cat}/>
-          </div>
+        tags.map(cat =>
+          <CategoryListItem key={cat.id} category={cat}/>
         )
       }
-    </div>
+    </Card.Group>
   );
 }
 
 export const categoriesListQuery = gql`
   query CategoriesListQuery {
-    categories {
+    tags {
       id
       name
-      places {
+      services {
         name
       }
     }
