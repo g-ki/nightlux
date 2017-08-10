@@ -3,17 +3,17 @@ import Service from '../models/service'
 
 const Query = {
   tags(root, { categoriesOnly }) {
-    return Tag.find().populate('services');
+    return Tag.find();
   },
 
 
   tag(root, { id }) {
-    return Tag.findById(id).populate('services');
+    return Tag.findById(id);
   },
 
 
   service(root, { id }) {
-    return Service.findById(id).populate('tags');
+    return Service.findById(id);
   }
 };
 
