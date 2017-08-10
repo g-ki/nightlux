@@ -45,6 +45,7 @@ const CategoryDetailsQuery = gql`
           address
         }
         tags {
+          id
           name
         }
       }

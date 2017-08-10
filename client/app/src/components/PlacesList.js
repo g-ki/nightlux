@@ -2,7 +2,8 @@ import React from 'react'
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import { Button, Icon, Image as ImageComponent, Item, Label } from 'semantic-ui-react'
+import { Link } from 'react-router-dom';
+import { Button, Icon, Image as ImageComponent, Item, Label } from 'semantic-ui-react';
 
 export default function PlacesList({ services }) {
   return (
@@ -23,7 +24,11 @@ export default function PlacesList({ services }) {
                   <Icon name='right chevron' />
                 </Button>
                 {
-                  s.tags.map(tag => <Label key={tag.name}>{ tag.name }</Label>)
+                  s.tags.map(tag =>
+                    <Label as={Link} to={`/tags/${tag.id}`} key={tag.name}>
+                      #{ tag.name }
+                    </Label>
+                  )
                 }
               </Item.Extra>
             </Item.Content>
