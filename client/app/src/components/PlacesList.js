@@ -23,7 +23,7 @@ export default function PlacesList({ services }) {
                   <Icon name='right chevron' />
                 </Button>
                 {
-                  // s.tags.map(tag => <Label>{ tag.name }</Label>)
+                  s.tags.map(tag => <Label key={tag.name}>{ tag.name }</Label>)
                 }
               </Item.Extra>
             </Item.Content>

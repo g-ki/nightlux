@@ -44,6 +44,9 @@ const CategoryDetailsQuery = gql`
         location {
           address
         }
+        tags {
+          name
+        }
       }
     }
   }
