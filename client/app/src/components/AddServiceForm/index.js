@@ -1,16 +1,27 @@
 import React from 'react';
 import { gql, graphql } from 'react-apollo';
-import { Button, Form, Divider, Grid } from 'semantic-ui-react';
+import { Button, Form, Divider, Grid,  Message } from 'semantic-ui-react';
+
+import ServiceForm from './form';
+import GMap from 'Components/GMap';
+
+import { EMBED_API_KEY } from '../../services/google-maps';
+
 
 class AddServiceForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = this.clearForm();
+  }
+
+
+  clearForm() {
+    return {
       name: "",
-      address: "",
+      place: {},
       tags: [],
       description: "",
-    };
+    }
   }
 
 
@@ -23,12 +34,12 @@ class AddServiceForm extends React.Component {
   }
 
 
-  handleTagsUpdate = (e, { value } ) => {
+  handleTagsChange = (e, { value } ) => {
     this.setState({ tags: value });
   }
 
 
-  handleSearchChange = (e, value) => {
+  handleTagSearch = (e, value) => {
     // TODO: Search in the datatabe
     console.log('search for', value);
   }
@@ -46,12 +57,7 @@ class AddServiceForm extends React.Component {
       console.error('something went wrong', e);
     }
 
-    this.setState({
-      name: "",
-      address: "",
-      tags: [],
-      description: "",
-    });
+    this.setState(this.clearForm());
   }
 
 
@@ -61,47 +67,37 @@ class AddServiceForm extends React.Component {
 
 
   render() {
+    let place_id = "_"; // TODO: fallback to the current location of the user
+    if (this.state.place.place_id)
+      place_id = `place_id:${this.state.place.place_id}`;
+
+    let address_percision_msg = ""
+    if (this.state.place.types && this.state.place.types[0] !== "street_address")
+      address_percision_msg = (
+        <Message warning>
+          <Message.Header>Please give more percise address!</Message.Header>
+        </Message>
+      );
+
+
     return (
       <Grid stackable columns={2}>
         <Grid.Column>
-          <Form as='div'>
-            <Form.Input
-              label='Service Name'
-              name="name"
-              type="text"
-              placeholder="Service name"
-              value={this.state.name}
-              onChange={this.handleInputChange} />
-
-            <Form.Input
-              label='Service address'
-              name="address"
-              type="text"
-              placeholder="Service address"
-              value={this.state.address}
-              onChange={this.handleInputChange} />
-
-            <Form.Dropdown
-              label='Tags'
-              placeholder='Tags'
-              fluid multiple selection search
-              options={[]}
-              value={this.state.tags}
-              onChange={this.handleTagsUpdate}
-              onSearchChange={this.handleSearchChange} />
-
-            <Form.TextArea
-              label='Description'
-              name="description"
-              placeholder="Description"
-              value={this.state.description}
-              onChange={this.handleInputChange} />
-
-              <Button onClick={this.handleSubmit}>Submit</Button>
-          </Form>
+          <ServiceForm
+            data={this.state}
+            onInputChange={this.handleInputChange}
+            onTagsChange={this.handleTagsChange}
+            tagOptions={[]}
+            onTagSearch={this.handleTagSearch} />
         </Grid.Column>
         <Grid.Column>
-          <h1>Map goes here</h1>
+          { address_percision_msg }
+          <iframe
+            width="100%"
+            height="400"
+            frameBorder="0" style={{border: 0}}
+            src={`https://www.google.com/maps/embed/v1/place?key=${EMBED_API_KEY}&q=${place_id}`} allowFullScreen>
+          </iframe>
         </Grid.Column>
       </Grid>
     );
