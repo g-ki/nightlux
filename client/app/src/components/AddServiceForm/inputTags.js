@@ -39,9 +39,9 @@ class InputTags extends React.Component {
     const valueOptions = value.map(v => ({ key: v, text: v, value: v }));
     tagOptions = lo.unionBy(tagOptions, valueOptions, 'value');
 
-    if (searchQuery.length > 0) {
-      const queryTag = {key: searchQuery, text: searchQuery, value: searchQuery};
-      tagOptions.unshift(queryTag);
+    if (searchQuery.length > 1) {
+      const queryTag = [{key: searchQuery, text: searchQuery, value: searchQuery}];
+      tagOptions = lo.unionBy(tagOptions, queryTag, 'value');
     }
 
     return (
