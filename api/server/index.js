@@ -7,7 +7,9 @@ import * as config from '../config'
 import bodyParser from 'body-parser';
 
 mongoose.Promise = global.Promise;
-mongoose.connect(config.db.MONGO_URL);
+mongoose.connect(config.db.MONGO_URL, {
+  useMongoClient: true,
+});
 
 let app = express();
 
