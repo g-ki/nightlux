@@ -1,9 +1,9 @@
 import React from 'react';
 import { gql, graphql } from 'react-apollo';
 import { Button, Form, Divider, Grid,  Message } from 'semantic-ui-react';
+import lo from 'lodash';
 
 import ServiceForm from './form';
-import GMap from 'Components/GMap';
 
 import { EMBED_API_KEY } from '../../services/google-maps';
 
@@ -34,23 +34,30 @@ class AddServiceForm extends React.Component {
   }
 
 
+  placeToLocation = (place) => {
+    const location = lo.get(
+      place, 'geometry.location',
+      { lat: lo.noop, lng: lo.noop }
+    );
+    return {
+      address: place.formated_address || place.name,
+      latitude: location.lat(),
+      longitude: location.lng(),
+    }
+  }
+
+
   handleTagsChange = (e, { value } ) => {
     this.setState({ tags: value });
   }
 
 
-  handleTagSearch = (e, value) => {
-    // TODO: Search in the datatabe
-    console.log('search for', value);
-  }
-
-
   handleSubmit = async (event) => {
-    event.preventDefault();
+    const input = lo.omit(this.state, 'place');
+    input.location = this.placeToLocation(this.state.place);
+
     try {
-      await this.props.mutate({
-        variables: { input: this.state },
-      });
+      await this.props.mutate({ variables: { input } });
       // TODO: redirect to service page
     } catch (e) {
       // TODO: display proper error message
@@ -87,8 +94,7 @@ class AddServiceForm extends React.Component {
             data={this.state}
             onInputChange={this.handleInputChange}
             onTagsChange={this.handleTagsChange}
-            tagOptions={[]}
-            onTagSearch={this.handleTagSearch} />
+            onSubmit={this.handleSubmit} />
         </Grid.Column>
         <Grid.Column>
           { address_percision_msg }

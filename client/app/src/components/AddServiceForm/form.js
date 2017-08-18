@@ -2,7 +2,9 @@ import React from 'react';
 import { Button, Form } from 'semantic-ui-react';
 import Autocomplete from 'react-google-autocomplete';
 
-export default function({ data, onInputChange, onTagsChange, tagOptions, onTagSearch }) {
+import InputTags from './inputTags';
+
+export default function({ data, onInputChange, onTagsChange, onSubmit }) {
   return (
     <Form as='div'>
       <Form.Input
@@ -28,14 +30,10 @@ export default function({ data, onInputChange, onTagsChange, tagOptions, onTagSe
           types={['address']} />
       </Form.Field>
 
-      <Form.Dropdown
-        label='Tags'
-        placeholder='Tags'
-        fluid multiple selection search
-        options={tagOptions}
+      <InputTags
         value={data.tags}
         onChange={onTagsChange}
-        onSearchChange={onTagSearch} />
+      />
 
       <Form.TextArea
         label='Description'
@@ -44,7 +42,7 @@ export default function({ data, onInputChange, onTagsChange, tagOptions, onTagSe
         value={data.description}
         onChange={onInputChange} />
 
-        <Button onClick={this.handleSubmit}>Submit</Button>
+        <Button onClick={onSubmit}>Submit</Button>
     </Form>
   );
 }
