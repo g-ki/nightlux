@@ -1,5 +1,7 @@
-import Tag from '../models/tag'
-import Service from '../models/service'
+import lo from 'lodash';
+import Joi from 'joi';
+import Tag from '../models/tag';
+import { default as Service, validService } from '../models/service';
 
 export default {
   async addTag(root, { name }) {
@@ -11,25 +13,23 @@ export default {
 
 
   async addService(root, { input }) {
-    const location = {
-      address: input.address,
-      latitude: 90 * Math.random(),
-      longitude: 180 * Math.random(),
-    };
-    // TODO: use google api to resolve address to geo coords
+    console.log('input: ',input);
+    const result = Joi.validate(input, validService);
+    console.log(result);
 
-    const inputTags = input.tags
-        .filter(t => t.trim().length > 0)
-        .map(t => t.trim().toLowerCase());
+    if (result.error !== null)
+      throw result.error;
+
+    const inputService = result.value;
 
     // check for new tags and create them
     let tags = await Tag.find({
-      name: { $in: inputTags },
+      name: { $in: inputService.tags },
     }).exec();
 
     // create missing tags
     const tagsName = tags.map(t => t.name);
-    let missingTags = inputTags.filter(t => tagsName.indexOf(t) < 0);
+    let missingTags = inputService.tags.filter(t => tagsName.indexOf(t) < 0);
     console.log(missingTags);
 
     let pQueue = missingTags.map(t => {
@@ -41,10 +41,8 @@ export default {
     tags = tags.concat(missingTags);
 
     const newService = new Service({
-      name: input.name.trim(),
-      location,
-      tags,
-      description: input.description.trim(),
+      ...inputService,
+      tags: tags,
     });
     await newService.save();
     console.log(newService);

@@ -20,19 +20,25 @@ type Service {
 
 input ServiceInput {
   name: String!
-  address: String
+  location: LocationInput!
   tags: [String!]
   description: String
 }
 
 type Location {
   address: String!
-  latitude: Float!
-  longitude: Float!
+  latitude: Float
+  longitude: Float
+}
+
+input LocationInput {
+  address: String!
+  latitude: Float
+  longitude: Float
 }
 
 type Query {
-  tags(categoriesOnly: Boolean): [Tag]
+  tags(categoriesOnly: Boolean, name: String, offset: Int, limit: Int): [Tag]
   tag(id: ID!): Tag
   service(id: ID!): Service
 }

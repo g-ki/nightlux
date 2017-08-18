@@ -2,8 +2,8 @@ import Tag from '../models/tag';
 import Service from '../models/service'
 
 const Query = {
-  tags(root, { categoriesOnly }) {
-    return Tag.find();
+  tags(root, { categoriesOnly, name = "", offset = 0, limit = 18 }) {
+    return Tag.find({ name: { $regex: `^${name}` } }).skip(offset).limit(limit);
   },
 
 
