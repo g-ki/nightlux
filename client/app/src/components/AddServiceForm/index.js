@@ -28,6 +28,10 @@ class AddServiceForm extends React.Component {
   handleInputChange = (event) => {
     const { target: { name, value } } = event;
 
+    if (name == 'place') {
+      console.log(value);
+    }
+
     this.setState({
       [name]: value,
     });
@@ -40,7 +44,7 @@ class AddServiceForm extends React.Component {
       { lat: lo.noop, lng: lo.noop }
     );
     return {
-      address: place.formated_address || place.name,
+      address: lo.get(place, 'formatted_address', place.name),
       latitude: location.lat(),
       longitude: location.lng(),
     }
