@@ -19,7 +19,7 @@ export default function PlacesList({ services }) {
               </Item.Meta>
               <Item.Description>{ s.description }</Item.Description>
               <Item.Extra>
-                <Button primary floated='right'>
+                <Button primary floated='right' as='a' href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(s.location.address)}`} target='_blank'>
                   Get Directions
                   <Icon name='right chevron' />
                 </Button>
