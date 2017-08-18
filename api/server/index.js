@@ -1,5 +1,4 @@
 import express from 'express';
-import cors from 'cors'
 import { graphql, graphiql } from './graph';
 import mongoose from 'mongoose'
 import * as config from '../config'
@@ -12,8 +11,6 @@ mongoose.connect(config.db.MONGO_URL, {
 });
 
 let app = express();
-
-app.use('*', cors({ origin: 'http://localhost:3000' }));
 
 app.use('/graphql', bodyParser.json(), graphql);
 app.use('/graphiql', graphiql);

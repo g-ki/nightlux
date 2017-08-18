@@ -18,7 +18,7 @@ import Home from 'Containers/Home';
 import Category from 'Containers/Category';
 import NewService from 'Containers/NewService';
 
-const networkOptions = { uri: 'http://localhost:4000/graphql' };
+const networkOptions = { uri: `http://${window.location.host}/api/graphql` };
 const networkInterface = createNetworkInterface(networkOptions);
 const client = new ApolloClient({
   networkInterface

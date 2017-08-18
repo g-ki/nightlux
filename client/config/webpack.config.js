@@ -29,10 +29,18 @@ module.exports = {
     inline: true,
     historyApiFallback: true,
     host: '0.0.0.0',
+    disableHostCheck: true,
     port: 3000,
     contentBase: distPath,
     publicPath: '/',
     stats: 'minimal',
+    proxy: {
+      '/api': {
+        target: 'http://api:4000/',
+        secure: false,
+        pathRewrite: { '^/api' : '' },
+      }
+    }
   },
   module: {
     rules: [
