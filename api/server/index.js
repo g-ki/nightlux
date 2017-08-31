@@ -1,5 +1,5 @@
 import express from 'express';
-import { graphql, graphiql } from './graph';
+import { graphql, graphiql } from './graphql';
 import mongoose from 'mongoose'
 import * as config from '../config'
 

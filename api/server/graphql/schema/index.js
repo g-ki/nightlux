@@ -1,9 +1,18 @@
 import fs from 'fs';
 import { join } from 'path';
-import resolvers from '../resolvers'
 import {
   makeExecutableSchema,
 } from 'graphql-tools';
+
+import * as Mutation from '../mutations';
+import * as Query from '../queries';
+import * as Types from '../types';
+
+const resolvers = {
+  Query,
+  Mutation,
+  ...Types,
+}
 
 /*
 * Public GraphQL schema.
