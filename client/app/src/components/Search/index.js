@@ -1,21 +1,43 @@
-import React from 'react';
-import style from './style.css';
-import { Input } from 'semantic-ui-react'
+import React from 'react'
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
-export default function searchBar(props) {
-  const handleKeyUp = async (evt) => {
-    console.log(evt.target.value);
+import style from './style.css';
+import { Input, Search } from 'semantic-ui-react'
+
+function searchBar(props) {
+  const handleKeyUp = async (e, { value }) => {
+    console.log(value);
+    props.data.refetch({
+      query: value,
+    });
   }
+
+  let results = [];
+  if (props.data.services)
+    results = props.data.services.map( s => ({ title: s.name }) );
 
   return (
     <div className={`${props.className}`}>
-      <Input
-        fluid
-        icon='search'
-        placeholder='Search...'
-        onKeyUp={handleKeyUp}
+      <Search
+        loading={props.data.loading}
+        onResultSelect={() => {}}
+        onSearchChange={handleKeyUp}
+        results={results}
+        className={style.search}
       />
-      <div className="results"></div>
     </div>
   );
 }
+
+
+const ServiceSearchQuery = gql`
+  query ServiceSearchQuery($query: String) {
+    services(query: $query) {
+      id
+      name
+    }
+  }
+`;
+
+export default (graphql(ServiceSearchQuery)(searchBar));

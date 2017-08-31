@@ -41,6 +41,7 @@ type Query {
   tags(categoriesOnly: Boolean, name: String, offset: Int, limit: Int): [Tag]
   tag(id: ID!): Tag
   service(id: ID!): Service
+  services(query: String, offset: Int, limit: Int): [Service]
 }
 
 type Mutation {

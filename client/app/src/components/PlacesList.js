@@ -11,7 +11,6 @@ export default function PlacesList({ services }) {
       {
         services.map(s =>
           <Item key={s.id}>
-            <Item.Image src='http://react.semantic-ui.com/assets/images/wireframe/image.png' />
             <Item.Content>
               <Item.Header as='a'>{ s.name }</Item.Header>
               <Item.Meta>

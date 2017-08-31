@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { gql, graphql } from 'react-apollo';
 import { Button, Form, Divider, Grid,  Message } from 'semantic-ui-react';
 import lo from 'lodash';
@@ -11,7 +12,10 @@ import { EMBED_API_KEY } from '../../services/google-maps';
 class AddServiceForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.clearForm();
+    this.state = {
+      ...this.clearForm(),
+      redirectTo: null,
+    };
   }
 
 
@@ -57,18 +61,18 @@ class AddServiceForm extends React.Component {
 
 
   handleSubmit = async (event) => {
-    const input = lo.omit(this.state, 'place');
+    const input = lo.omit(this.state, 'place', 'redirectTo');
     input.location = this.placeToLocation(this.state.place);
 
     try {
-      await this.props.mutate({ variables: { input } });
-      // TODO: redirect to service page
+      const res = await this.props.mutate({ variables: { input } });
+      this.setState({ redirectTo: `/services/${res.data.createService.id}` });
+      this.setState(this.clearForm());
     } catch (e) {
       // TODO: display proper error message
-      console.error('something went wrong', e);
+      console.error('something went wrong');
+      console.error(e)
     }
-
-    this.setState(this.clearForm());
   }
 
 
@@ -90,6 +94,12 @@ class AddServiceForm extends React.Component {
         </Message>
       );
 
+   if (this.state.redirectTo)
+    return (
+      <Redirect to={{
+        pathname: this.state.redirectTo
+      }} />
+    );
 
     return (
       <Grid stackable columns={2}>
@@ -116,8 +126,8 @@ class AddServiceForm extends React.Component {
 
 
 const addServiceMutation = gql`
-  mutation addService($input: ServiceInput) {
-    addService(input: $input) {
+  mutation createService($input: ServiceInput) {
+    createService(input: $input) {
       id
     }
   }

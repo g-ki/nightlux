@@ -1,5 +1,13 @@
-.search input {
-  background-color: #292929 !important;
-  color: #ccc !important;
-  border: 1px solid #242424 !important;
+:global(.ui.search) :global(.input) {
+  width: 100%;
 }
+
+:global(.ui.search) :global(.input) input {
+  border-radius: 3px;
+}
+
+:global(.ui.search) :global(.results) {
+  width: 100%;
+}
+
+
