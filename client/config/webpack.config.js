@@ -21,7 +21,8 @@ module.exports = {
   resolve: {
     alias: {
       Components: resolve(__dirname, '..', 'app/src/components/'),
-      Containers: resolve(__dirname, '..', 'app/src/containers/')
+      Containers: resolve(__dirname, '..', 'app/src/containers/'),
+      Assets: resolve(__dirname, '..', 'app/src/assets/'),
     }
   },
   devServer: {
@@ -64,7 +65,14 @@ module.exports = {
       {
         test: /\.css$/,
         use: [ 'style-loader', 'css-loader?modules', ],
-      }
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg|ico)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'assets/images/[name].[ext]?[hash]'
+        }
+      },
     ]
   },
 
