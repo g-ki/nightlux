@@ -46,6 +46,8 @@ type Query {
 type Mutation {
   # A mutation to add new Tag
   createTag(input: TagInput): Tag
+  # A mutation to delete Tag
+  deleteTag(id: ID!): Tag
   # A mutation to add new Service
   createService(input: ServiceInput): Service
   # A mutation to delete Serivice
