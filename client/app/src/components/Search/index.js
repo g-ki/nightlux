@@ -1,33 +1,53 @@
-import React from 'react'
+import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import style from './style.css';
 import { Input, Search } from 'semantic-ui-react'
 
-function searchBar(props) {
-  const handleKeyUp = async (e, { value }) => {
-    console.log(value);
-    props.data.refetch({
+class SearchBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      redirectTo: null,
+    };
+  }
+
+  handleKeyUp = (e, { value }) => {
+    this.props.data.refetch({
       query: value,
     });
   }
 
-  let results = [];
-  if (props.data.services)
-    results = props.data.services.map( s => ({ title: s.name }) );
+  handleResultSelect = (e, { result }) => {
+    this.setState({
+      redirectTo: `/services?q=${result.title}`
+    });
+  }
 
-  return (
-    <div className={`${props.className}`}>
-      <Search
-        loading={props.data.loading}
-        onResultSelect={() => {}}
-        onSearchChange={handleKeyUp}
-        results={results}
-        className={style.search}
-      />
-    </div>
-  );
+  render() {
+    if (this.state.redirectTo)
+      return (
+        <Redirect push to={this.state.redirectTo} />
+      );
+
+    let results = [];
+    if (this.props.data.services)
+      results = this.props.data.services.map( s => ({ title: s.name }) );
+
+    return (
+      <div className={`${this.props.className}`}>
+        <Search
+          loading={this.props.data.loading}
+          onResultSelect={this.handleResultSelect}
+          onSearchChange={this.handleKeyUp}
+          results={results}
+          className={style.search}
+        />
+      </div>
+    );
+  }
 }
 
 
@@ -40,4 +60,4 @@ const ServiceSearchQuery = gql`
   }
 `;
 
-export default (graphql(ServiceSearchQuery)(searchBar));
+export default (graphql(ServiceSearchQuery)(SearchBar));
