@@ -9,7 +9,7 @@ export default function Service({ service }) {
   return (
     <Item>
       <Item.Content>
-        <Item.Header as='a'>{ service.name }</Item.Header>
+        <Link to={`/services/${service.id}`} className='header'>{ service.name }</Link>
         <Item.Meta>
           { service.location.address }
         </Item.Meta>

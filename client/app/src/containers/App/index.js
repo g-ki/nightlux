@@ -18,6 +18,7 @@ import Home from 'Containers/Home';
 import Category from 'Containers/Category';
 import NewService from 'Containers/NewService';
 import ServicesSearch from 'Containers/ServicesSearch';
+import Service from 'Containers/Service';
 import Near from 'Containers/Near';
 
 const networkOptions = { uri: `http://${window.location.host}/api/graphql` };
@@ -36,6 +37,7 @@ const App = () => (
             <Route path='/tags/:tagId' component={Category} />
             <Route exact path='/services' component={ServicesSearch} />
             <Route path='/services/new' component={NewService} />
+            <Route exact path='/services/:id' component={Service} />
           </Switch>
         </div>
     </BrowserRouter>
