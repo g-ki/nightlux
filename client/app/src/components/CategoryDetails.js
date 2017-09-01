@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import { Header,  Dimmer, Loader } from 'semantic-ui-react';
-import PlacesList from './PlacesList';
+import ServiceList from './ServiceList';
 
 function CategoryDetails({ data: { loading, error, tag } }) {
   if (loading)
@@ -18,16 +18,16 @@ function CategoryDetails({ data: { loading, error, tag } }) {
   // if (tag === null)
   //   return <NotFound />
 
-  let placeList = null;
+  let serviceList = null;
   if (tag.services.length == 0)
-    placeList = <p>No places in this category!</p>
+    serviceList = <p>No places in this category!</p>
   else
-    placeList = <PlacesList services={tag.services} />
+    serviceList = <ServiceList services={tag.services} />
 
   return (
     <div className='category-details'>
       <Header as='h1'>#{tag.name}</Header>
-      {placeList}
+      {serviceList}
     </div>
   );
 }
