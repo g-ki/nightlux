@@ -1,13 +1,21 @@
+.search-bar :global(.ui.search) {
+  width: calc(100% - 45px);
+  display: inline-block;
+}
+
 :global(.ui.search) :global(.input) {
   width: 100%;
 }
 
 :global(.ui.search) :global(.input) input {
-  border-radius: 3px;
+  border-radius: 3px 0 0 3px;
 }
 
 :global(.ui.search) :global(.results) {
   width: 100%;
 }
 
+.geoButton {
+  border-radius: 0 3px 3px 0 !important;
+}
 

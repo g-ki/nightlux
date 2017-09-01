@@ -29,6 +29,11 @@ async function createService(root, { input }) {
 
   tags = tags.concat(missingTags);
 
+  inputService.location.coords = [
+    inputService.location.latitude,
+    inputService.location.longitude,
+  ]
+
   const newService = new Service({
     ...inputService,
     tags: tags,

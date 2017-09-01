@@ -10,6 +10,10 @@ const Service = mongoose.model('Service', {
     address: String,
     latitude: Number,
     longitude: Number,
+    coords: {
+      type: [Number],
+      index: '2d',
+    }
   },
   description: String,
 });
