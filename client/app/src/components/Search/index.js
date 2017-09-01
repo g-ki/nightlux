@@ -27,10 +27,14 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    if (this.state.redirectTo)
+    if (this.state.redirectTo) {
+      const path = this.state.redirectTo;
+      this.setState({ redirectTo: null })
       return (
-        <Redirect push to={this.state.redirectTo} />
+        <Redirect push to={path} />
       );
+    }
+
 
     let results = [];
     if (this.props.data.services)
