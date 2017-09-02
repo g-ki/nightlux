@@ -37,11 +37,24 @@ input LocationInput {
   longitude: Float
 }
 
+type User {
+  id: ID!
+  email: String!
+  role: String
+}
+
+input UserInput {
+  email: String!
+  password: String!
+  role: String
+}
+
 type Query {
   tags(categoriesOnly: Boolean, name: String, offset: Int, limit: Int): [Tag]
   tag(id: ID!): Tag
   service(id: ID!): Service
   services(query: String, geoQuery: String, offset: Int, limit: Int): [Service]
+  user(id: ID!): User
 }
 
 type Mutation {
@@ -53,4 +66,6 @@ type Mutation {
   createService(input: ServiceInput): Service
   # A mutation to delete Serivice
   deleteService(id: ID!): Service
+
+  createUser(input: UserInput): User
 }

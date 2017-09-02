@@ -10,7 +10,7 @@ export default function tags(root, args) {
     return Service.find({
       'location.coords': {
         $near: coords,
-        $maxDistance: 5,
+        $maxDistance: 5/111.12,
       },
       name: { $regex: `${query}`, $options: 'i' },
     }).skip(offset).limit(limit);
