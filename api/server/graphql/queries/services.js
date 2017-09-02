@@ -12,9 +12,9 @@ export default function tags(root, args) {
         $near: coords,
         $maxDistance: 5,
       },
-      name: { $regex: `^${query}`, $options: 'i' },
+      name: { $regex: `${query}`, $options: 'i' },
     }).skip(offset).limit(limit);
   }
 
-  return Service.find({ name: { $regex: `^${query}`, $options: 'i' } }).skip(offset).limit(limit);
+  return Service.find({ name: { $regex: `${query}`, $options: 'i' } }).skip(offset).limit(limit);
 }
