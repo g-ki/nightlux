@@ -9,6 +9,7 @@ export default (props) => (
     <HeaderBar />
     <Grid container>
       <Grid.Column>
+        <h1>Near by</h1>
         <NearSearchResults />
       </Grid.Column>
     </Grid>

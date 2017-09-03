@@ -36,9 +36,8 @@ class NearSearchResults extends React.Component {
   }
 
   render() {
-    let location = "Loading";
-    if (this.state.currentLocation)
-      location = `${this.state.currentLocation.latitude},${this.state.currentLocation.longitude}`;
+    if (!this.state.currentLocation)
+      return (<p>{this.state.currentLocation}Loading...</p>);
 
     const { loading, error, services } = this.props.data;
     console.log(loading, services)
